@@ -1,7 +1,6 @@
 # Filter-Emails-From-Files
 Software required: JDK,IDE Java language(Netbeans,IntelliJ,...)
 A program that aims to filter all Emails contained in .txt files that are scrambled and contain many unwanted elements
-
 ## There will be 2 cases
 
 **Case 1**
