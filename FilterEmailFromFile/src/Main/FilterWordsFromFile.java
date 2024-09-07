@@ -40,29 +40,29 @@ public class FilterWordsFromFile {
             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 
             String line;
-            Map<String, Integer> wordCount = new HashMap<>();
-            Set<String> uniqueWords = new HashSet<>();
+            Set<String> uniqueEmails = new HashSet<>();
             List<String> filteredEmails = new ArrayList<>();
+
             while ((line = reader.readLine()) != null) {
                 // Use regular expression to split words
                 String[] words = line.split("\\s");
                 for (String word : words) {
-                    // Check if the word contains "@" and is not already in wordCount
-                    if (word.contains("@") && uniqueWords.add(word)) {
-                        // Remove unwanted characters from the email
-                        word = word.replaceAll("[<>;/ª,]", "");
-                        // Convert the email to lowercase
-                        word = word.toLowerCase();
-                        filteredEmails.add(word);
-                        wordCount.put(word, 1);
+                    // Check if the word contains "@" and remove unwanted characters
+                    if (word.contains("@")) {
+                        word = word.replaceAll("[<>;/ª,]", "").toLowerCase();
+                        if (uniqueEmails.add(word)) {
+                            filteredEmails.add(word);
+                        }
                     }
                 }
             }
+
             Collections.sort(filteredEmails);
             for (String email : filteredEmails) {
                 writer.write(email);
                 writer.newLine();
             }
+
             // Close the files after processing
             reader.close();
             writer.close();
